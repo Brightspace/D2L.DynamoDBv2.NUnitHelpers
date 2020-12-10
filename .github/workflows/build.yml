@@ -6,7 +6,7 @@ env:
 
 jobs:
     build:
-        runs-on: [self-hosted, Windows, AWS]
+        runs-on: windows-latest
 
         steps:
 
