@@ -1,0 +1,23 @@
+<Project>
+	<Import Project="VersionInfo.props" />
+
+	<PropertyGroup>
+		<Deterministic>true</Deterministic>
+		<IncludeSymbols>false</IncludeSymbols>
+		<IsPackable>false</IsPackable>
+		<LangVersion>8.0</LangVersion>
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Authors>Jeff Ashton</Authors>
+		<Company>D2L Corporation</Company>
+		<Copyright>Copyright © 2020</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/Brightspace/D2L.DynamoDBv2.NUnitHelpers</PackageProjectUrl>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/Brightspace/D2L.DynamoDBv2.NUnitHelpers</RepositoryUrl>
+	</PropertyGroup>
+
+</Project>
