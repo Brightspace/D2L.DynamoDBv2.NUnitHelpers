@@ -61,9 +61,9 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 				Dictionary<string, AttributeValue> expected
 			) {
 
-			CollectionAssert.AreEquivalent(
-					expected.Keys,
+			Assert.That(
 					actual.Keys,
+					Is.EquivalentTo( expected.Keys ),
 					"{0}.Keys must be equivalent",
 					path
 				);
