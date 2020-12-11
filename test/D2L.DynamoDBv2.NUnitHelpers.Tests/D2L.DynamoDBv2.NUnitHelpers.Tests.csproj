@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<Nullable>disable</Nullable>
 		<OutputType>Library</OutputType>
-		<TargetFrameworks>net45;netcoreapp3.1</TargetFrameworks>
+		<TargetFrameworks>netcoreapp3.1</TargetFrameworks>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
