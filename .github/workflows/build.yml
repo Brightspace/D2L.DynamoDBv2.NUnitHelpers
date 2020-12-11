@@ -5,7 +5,30 @@ env:
     VERSION_PREFIX: "0.0.1"
 
 jobs:
-    build:
+
+    # Need to test and pack separately because github actions only support docker services in linux,
+    # but linux doesn't support targetting net45 framework.
+    test:
+        runs-on: ubuntu-latest
+
+        services:
+            dynamo:
+                image: amazon/dynamodb-local
+                ports: [ '8000:8000' ]
+
+        steps:
+
+          - uses: Brightspace/third-party-actions@actions/checkout
+
+          - name: Setup .NET Core
+            uses:  Brightspace/third-party-actions@actions/setup-dotnet
+            with:
+                dotnet-version: 3.1.x
+
+          - name: dotnet test --framework "netcoreapp3.1"
+            run: dotnet test --configuration Release --framework "netcoreapp3.1"
+
+    pack:
         runs-on: windows-latest
 
         steps:
@@ -23,11 +46,14 @@ jobs:
           - name: Generate version properties
             run: dotnet ci-version-properties --output VersionInfo.props && cat VersionInfo.props
 
-          - name: dotnet restore
-            run: dotnet restore
-
-          - name: dotnet build
-            run: dotnet build --configuration Release
-
           - name: dotnet test
-            run: dotnet test --configuration Release --no-build
+            run: dotnet pack --configuration Release
+
+          - name: Copy *.nuget to dist/
+            run: mkdir dist/ && cp src/D2L.DynamoDBv2.NUnitHelpers/bin/Release/*.nupkg dist/
+
+          - name: Archive dist/
+            uses: actions/upload-artifact@v1
+            with:
+                name: dist
+                path: dist/

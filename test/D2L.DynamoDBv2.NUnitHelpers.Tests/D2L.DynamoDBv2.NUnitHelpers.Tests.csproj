@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
+		<Nullable>disable</Nullable>
 		<OutputType>Library</OutputType>
 		<TargetFrameworks>net45;netcoreapp3.1</TargetFrameworks>
 	</PropertyGroup>
