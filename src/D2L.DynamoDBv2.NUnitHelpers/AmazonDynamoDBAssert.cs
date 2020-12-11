@@ -25,11 +25,9 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 				.GetItemAsync( request )
 				.ConfigureAwait( false );
 
-			Assert.That(
-					response.IsItemSet,
-					Is.True,
-					"Item should exist"
-				);
+			if( !response.IsItemSet ) {
+				Assert.Fail( "Item should exist." );
+			}
 
 			AttributeValueAssert.AreEqual(
 					actual: response.Item,
@@ -53,11 +51,9 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 				.GetItemAsync( request )
 				.ConfigureAwait( false );
 
-			Assert.That(
-					response.IsItemSet,
-					Is.False,
-					"Item should not exist"
-				);
+			if( response.IsItemSet ) {
+				Assert.Fail( "Item should not exist." );
+			}
 		}
 	}
 }

@@ -8,6 +8,12 @@ jobs:
     build:
         runs-on: windows-latest
 
+        services:
+            dynamo:
+                image: amazon/dynamodb-local
+            ports:
+                - 8000:8000
+
         steps:
 
           - uses: Brightspace/third-party-actions@actions/checkout
