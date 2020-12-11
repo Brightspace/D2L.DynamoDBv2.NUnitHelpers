@@ -5,6 +5,9 @@ env:
     VERSION_PREFIX: "0.0.1"
 
 jobs:
+
+    # Need to test and pack separately because github actions only support docker services in linux,
+    # but linux doesn't support targetting net45 framework.
     test:
         runs-on: ubuntu-latest
 
@@ -22,7 +25,7 @@ jobs:
             with:
                 dotnet-version: 3.1.x
 
-          - name: dotnet test
+          - name: dotnet test --framework "netcoreapp3.1"
             run: dotnet test --configuration Release --framework "netcoreapp3.1"
 
     pack:
@@ -45,3 +48,12 @@ jobs:
 
           - name: dotnet test
             run: dotnet pack --configuration Release
+
+          - name: Copy *.nuget to dist/
+            run: mkdir dist/ && cp src/D2L.DynamoDBv2.NUnitHelpers/bin/Release/*.nupkg dist/
+
+          - name: Archive dist/
+            uses: actions/upload-artifact@v1
+            with:
+                name: dist
+                path: dist/
