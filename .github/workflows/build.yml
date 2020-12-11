@@ -5,7 +5,7 @@ env:
     VERSION_PREFIX: "0.0.1"
 
 jobs:
-    build:
+    test:
         runs-on: ubuntu-latest
 
         services:
@@ -22,17 +22,26 @@ jobs:
             with:
                 dotnet-version: 3.1.x
 
+          - name: dotnet test
+            run: dotnet test --configuration Release --framework "netcoreapp3.1"
+
+    pack:
+        runs-on: windows-latest
+
+        steps:
+
+          - uses: Brightspace/third-party-actions@actions/checkout
+
+          - name: Setup .NET Core
+            uses:  Brightspace/third-party-actions@actions/setup-dotnet
+            with:
+                dotnet-version: 3.1.x
+
           - name: dotnet tool restore
             run: dotnet tool restore
 
           - name: Generate version properties
             run: dotnet ci-version-properties --output VersionInfo.props && cat VersionInfo.props
 
-          - name: dotnet restore
-            run: dotnet restore
-
-          - name: dotnet build
-            run: dotnet build --configuration Release
-
           - name: dotnet test
-            run: dotnet test --configuration Release --no-build
+            run: dotnet pack --configuration Release
