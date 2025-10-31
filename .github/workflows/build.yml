@@ -53,7 +53,7 @@ jobs:
             run: mkdir dist/ && cp src/D2L.DynamoDBv2.NUnitHelpers/bin/Release/*.nupkg dist/
 
           - name: Archive dist/
-            uses: actions/upload-artifact@v1
+            uses: actions/upload-artifact@v4
             with:
                 name: dist
                 path: dist/
