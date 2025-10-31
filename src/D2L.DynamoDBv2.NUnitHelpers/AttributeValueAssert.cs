@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Amazon.DynamoDBv2.Model;
 using NUnit.Framework;
 
@@ -9,8 +10,8 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 	public static class AttributeValueAssert {
 
 		public static void AreEqual(
-				Dictionary<string, AttributeValue> actual,
-				Dictionary<string, AttributeValue> expected
+				Dictionary<string, AttributeValue>? actual,
+				Dictionary<string, AttributeValue>? expected
 			) {
 
 			AssertMapAttributes(
@@ -34,15 +35,28 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 
 		private static void AssertListAttributes(
 				string path,
-				List<AttributeValue> actual,
-				List<AttributeValue> expected
+				List<AttributeValue>? actual,
+				List<AttributeValue>? expected
 			) {
+
+			if( expected is null ) {
+				Assert.That(
+						actual,
+						Is.Null,
+						FormattableStringFactory.Create( "{0} is expected to be null", path )
+					);
+				return;
+			}
+
+			if( actual is null ) {
+				Assert.Fail( $"{path} is expected to be not null" );
+				return;
+			}
 
 			Assert.That(
 					actual.Count,
 					Is.EqualTo( expected.Count ),
-					"List length must be equal ({0})",
-					path
+					FormattableStringFactory.Create( "List length must be equal ({0})", path )
 				);
 
 			for( int i = 0; i < actual.Count; i++ ) {
@@ -57,15 +71,28 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 
 		private static void AssertMapAttributes(
 				string path,
-				Dictionary<string, AttributeValue> actual,
-				Dictionary<string, AttributeValue> expected
+				Dictionary<string, AttributeValue>? actual,
+				Dictionary<string, AttributeValue>? expected
 			) {
+
+			if( expected is null ) {
+				Assert.That(
+					actual,
+					Is.Null,
+					FormattableStringFactory.Create( "{0} is expected to be null", path )
+				);
+				return;
+			}
+
+			if( actual is null ) {
+				Assert.Fail( $"{path} is expected to be not null" );
+				return;
+			}
 
 			Assert.That(
 					actual.Keys,
 					Is.EquivalentTo( expected.Keys ),
-					"{0}.Keys must be equivalent",
-					path
+					FormattableStringFactory.Create( "{0}.Keys must be equivalent", path )
 				);
 
 			foreach( KeyValuePair<string, AttributeValue> pair in actual ) {
@@ -89,8 +116,7 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 				Assert.That(
 						actual.B.ToArray(),
 						Is.EqualTo( expected.B.ToArray() ),
-						"{0}B must be equal",
-						path
+						FormattableStringFactory.Create( "{0}B must be equal", path )
 					);
 
 			} else {
@@ -98,37 +124,32 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 				Assert.That(
 						actual.B,
 						Is.EqualTo( expected.B ),
-						"{0}B must be equal",
-						path
+						FormattableStringFactory.Create( "{0}B must be equal", path )
 					);
 			}
 
 			Assert.That(
 					actual.IsBOOLSet,
 					Is.EqualTo( expected.IsBOOLSet ),
-					"{0}IsBOOLSet must be equal",
-					path
+					FormattableStringFactory.Create( "{0}IsBOOLSet must be equal", path )
 				);
 
 			Assert.That(
 					actual.BOOL,
 					Is.EqualTo( expected.BOOL ),
-					"{0}BOOL must be equal",
-					path
+					FormattableStringFactory.Create( "{0}BOOL must be equal", path )
 				);
 
 			Assert.That(
 					actual.BS,
-					Is.EquivalentTo( expected.BS ).Using( MemoryStreamEqualityComparer.Instance ),
-					"{0}BS must be equivalent",
-					path
+					Is.EqualTo( expected.BS ).Or.EquivalentTo( expected.BS ).Using( MemoryStreamEqualityComparer.Instance ),
+					FormattableStringFactory.Create( "{0}BS must be equivalent", path )
 				);
 
 			Assert.That(
 					actual.IsLSet,
 					Is.EqualTo( expected.IsLSet ),
-					"{0}IsLSet must be equal",
-					path
+					FormattableStringFactory.Create( "{0}IsLSet must be equal", path )
 				);
 
 			AssertListAttributes(
@@ -140,8 +161,7 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 			Assert.That(
 					actual.IsMSet,
 					Is.EqualTo( expected.IsMSet ),
-					"{0}IsMSet must be equal",
-					path
+					FormattableStringFactory.Create( "{0}IsMSet must be equal", path )
 				);
 
 			AssertMapAttributes(
@@ -153,36 +173,31 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 			Assert.That(
 					actual.N,
 					Is.EqualTo( expected.N ),
-					"{0}N must be equal",
-					path
+					FormattableStringFactory.Create( "{0}N must be equal", path )
 				);
 
 			Assert.That(
 					actual.NULL,
 					Is.EqualTo( expected.NULL ),
-					"{0}NULL must be equal",
-					path
+					FormattableStringFactory.Create( "{0}NULL must be equal", path )
 				);
 
 			Assert.That(
 					actual.NS,
-					Is.EquivalentTo( expected.NS ),
-					"{0}NS must be equivalent",
-					path
+					Is.EqualTo( expected.NS ).Or.EquivalentTo( expected.NS ),
+					FormattableStringFactory.Create( "{0}NS must be equivalent", path )
 				);
 
 			Assert.That(
 					actual.S,
 					Is.EqualTo( expected.S ),
-					"{0}S must be equal",
-					path
+					FormattableStringFactory.Create( "{0}S must be equal", path )
 				);
 
 			Assert.That(
 					actual.SS,
-					Is.EquivalentTo( expected.SS ),
-					"{0}SS must be equivalent",
-					path
+					Is.EqualTo( expected.SS ).Or.EquivalentTo( expected.SS ),
+					FormattableStringFactory.Create( "{0}SS must be equivalent", path )
 				);
 		}
 

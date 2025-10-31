@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11111.16 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D2L.DynamoDBv2.NUnitHelpers", "src\D2L.DynamoDBv2.NUnitHelpers\D2L.DynamoDBv2.NUnitHelpers.csproj", "{919AEE16-523B-48FB-82B9-4B3E7D3E5047}"
 EndProject
@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		.github\workflows\build.yml = .github\workflows\build.yml
 		Directory.Build.props = Directory.Build.props
+		.config\dotnet-tools.json = .config\dotnet-tools.json
+		global.json = global.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D2L.DynamoDBv2.NUnitHelpers.Tests", "test\D2L.DynamoDBv2.NUnitHelpers.Tests\D2L.DynamoDBv2.NUnitHelpers.Tests.csproj", "{0DC5FD65-466B-495E-9439-281A08B5D150}"

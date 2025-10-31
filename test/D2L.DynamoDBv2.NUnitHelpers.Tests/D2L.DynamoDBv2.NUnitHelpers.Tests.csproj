@@ -2,11 +2,11 @@
 	<PropertyGroup>
 		<Nullable>disable</Nullable>
 		<OutputType>Library</OutputType>
-		<TargetFrameworks>net45;netcoreapp3.1</TargetFrameworks>
+		<TargetFrameworks>net8</TargetFrameworks>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
-		<PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
+		<PackageReference Include="NUnit3TestAdapter" Version="5.2.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\D2L.DynamoDBv2.NUnitHelpers\D2L.DynamoDBv2.NUnitHelpers.csproj" />
