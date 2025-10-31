@@ -54,7 +54,7 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 			}
 
 			Assert.That(
-					actual!.Count,
+					actual.Count,
 					Is.EqualTo( expected.Count ),
 					FormattableStringFactory.Create( "List length must be equal ({0})", path )
 				);
@@ -62,7 +62,7 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 			for( int i = 0; i < actual.Count; i++ ) {
 
 				AssertAttributeValue(
-						path: $"{path}[{i}].",
+						path: $"{ path }[{ i }].",
 						actual: actual[ i ],
 						expected: expected[ i ]
 					);
@@ -98,7 +98,7 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 			foreach( KeyValuePair<string, AttributeValue> pair in actual ) {
 
 				AssertAttributeValue(
-						path: $"{path}[{pair.Key}].",
+						path: $"{ path }[{ pair.Key }].",
 						actual: pair.Value,
 						expected: expected[ pair.Key ]
 					);
@@ -153,7 +153,7 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 				);
 
 			AssertListAttributes(
-					path: $"{path}L",
+					path: $"{ path }L",
 					actual: actual.L,
 					expected: expected.L
 				);
@@ -165,7 +165,7 @@ namespace D2L.DynamoDBv2.NUnitHelpers {
 				);
 
 			AssertMapAttributes(
-					path: $"{path}M",
+					path: $"{ path }M",
 					actual: actual.M,
 					expected: expected.M
 				);
